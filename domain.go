@@ -1,8 +1,9 @@
+// Package domain contains some nifty tools for manipulating domains and domain names.
 package domain
 
 import "strings"
 
-// Protocol returns the appropriate protocol for a givin hostname.
+// Protocol returns the protocol to use for a given hostname.
 // Local domains return `http://`, while all other domains return `https://`
 func Protocol(hostname string) string {
 	if IsLocalhost(hostname) {
@@ -15,28 +16,35 @@ func Protocol(hostname string) string {
 func NameOnly(host string) string {
 	host = strings.TrimPrefix(host, "http://")
 	host = strings.TrimPrefix(host, "https://")
+	host = strings.Split(host, "/")[0]
 	host = strings.Split(host, ":")[0]
 
 	return host
+}
+
+// HasProtocol returns TRUE if the provided URL includes a protocol string
+func HasProtocol(url string) bool {
+
+	if strings.HasPrefix(url, "http://") {
+		return true
+	}
+
+	if strings.HasPrefix(url, "https://") {
+		return true
+	}
+
+	return false
 }
 
 // AddProtocol adds a protocol to a URL if it does not already exist.
 // Local domains use http:// and all other domains use https://
 func AddProtocol(url string) string {
 
-	if strings.HasPrefix(url, "http://") {
+	if HasProtocol(url) {
 		return url
 	}
 
-	if strings.HasPrefix(url, "https://") {
-		return url
-	}
-
-	if IsLocalhost(url) {
-		return "http://" + url
-	}
-
-	return "https://" + url
+	return Protocol(url) + url
 }
 
 // IsLocalhost returns TRUE if the hostname is a local domain
