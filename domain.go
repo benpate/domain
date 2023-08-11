@@ -76,3 +76,8 @@ func IsLocalhost(hostname string) bool {
 
 	return false
 }
+
+// NotLocalhost returns TRUE if the hostname is NOT a local domain
+func NotLocalhost(hostname string) bool {
+	return !IsLocalhost(hostname)
+}
