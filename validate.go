@@ -3,6 +3,8 @@ package domain
 import (
 	"regexp"
 	"strings"
+
+	"net/netip"
 )
 
 var hostnameSegment *regexp.Regexp
@@ -20,6 +22,11 @@ func IsValidHostname(hostname string) bool {
 
 	// Remove Ports and Protocols
 	hostname = NameOnly(hostname)
+
+	// If the hostname is a valid IP address, then it's valid
+	if _, err := netip.ParseAddr(hostname); err == nil {
+		return true
+	}
 
 	// RULE: Maximum length of 253 characters
 	// https://www.rfc-editor.org/rfc/rfc1035

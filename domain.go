@@ -1,7 +1,9 @@
 // Package domain contains some nifty tools for manipulating domains and domain names.
 package domain
 
-import "strings"
+import (
+	"strings"
+)
 
 // Protocol returns the protocol to use for a given hostname.
 // Local domains return `http://`, while all other domains return `https://`
