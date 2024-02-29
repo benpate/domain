@@ -41,6 +41,9 @@ func TestValidate_Success(t *testing.T) {
 		"99stack.com",
 		"sta99ck.com",
 		"connor.com:8080", // Ports ignored
+
+		// IP Addresses
+		"127.0.0.1",
 	}
 
 	for _, value := range values {
