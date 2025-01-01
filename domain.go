@@ -52,6 +52,9 @@ func AddProtocol(url string) string {
 // IsLocalhost returns TRUE if the hostname is a local domain
 func IsLocalhost(hostname string) bool {
 
+	// Private networks are defined by RFC 1918
+	// https://en.wikipedia.org/wiki/Private_network
+
 	// Nornalize the hostname
 	hostname = NameOnly(hostname)
 	hostname = strings.ToLower(hostname)
@@ -68,13 +71,22 @@ func IsLocalhost(hostname string) bool {
 		return true
 	}
 
+	// 24-bit block
 	if strings.HasPrefix(hostname, "10.") {
 		return true
 	}
 
+	// 20-bit block
+	if strings.HasPrefix(hostname, "172.16") {
+		return true
+	}
+
+	// 16-bit block
 	if strings.HasPrefix(hostname, "192.168") {
 		return true
 	}
+
+	// TODO: IPv6 private networks
 
 	return false
 }
