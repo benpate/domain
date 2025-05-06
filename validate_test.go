@@ -10,7 +10,7 @@ func TestValidate_Success(t *testing.T) {
 
 	values := []string{
 		"localhost",      // localhost is always valid
-		"friday.local",   // .local is always valid
+		"address.local",  // .local is always valid
 		"connor.com",     // simple example name
 		"www.connor.com", // three segments
 		"you.can.have.many.subdomains.as.you.want.com", // many segments
