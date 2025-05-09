@@ -15,6 +15,7 @@ func TestIsLocalhost(t *testing.T) {
 	require.True(t, IsLocalhost("10.0.0.4/@john"))
 	require.True(t, IsLocalhost("http://localhost:8080/john"))
 	require.True(t, IsLocalhost("http://192.168.69.69"))
+	require.True(t, IsLocalhost("http://172.16.69.69"))
 	require.True(t, IsLocalhost("https://server.local"))
 
 	require.False(t, IsLocalhost("connor.com"))
