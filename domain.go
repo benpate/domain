@@ -18,8 +18,8 @@ func Protocol(hostname string) string {
 func NameOnly(host string) string {
 	host = strings.TrimPrefix(host, "http://")
 	host = strings.TrimPrefix(host, "https://")
-	host = strings.Split(host, "/")[0]
-	host = strings.Split(host, ":")[0]
+	host, _, _ = strings.Cut(host, "/")
+	host, _, _ = strings.Cut(host, ":")
 
 	return host
 }
