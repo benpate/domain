@@ -21,7 +21,7 @@ func TestHostname(t *testing.T) {
 
 		// Test results
 		require.NoError(t, err)
-		require.Equal(t, expected, Hostname(req))
+		require.Equal(t, expected, TrueHostname(req))
 	}
 
 	// Validate localhost
