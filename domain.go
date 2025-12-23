@@ -2,6 +2,7 @@
 package domain
 
 import (
+	"net/url"
 	"strings"
 )
 
@@ -32,6 +33,27 @@ func NameOnly(value string) string {
 	return value
 }
 
+func TrimHostname(value string) string {
+
+	// Value must parse as a valid URL, otherwise return empty string
+	parsed, err := url.Parse(value)
+
+	if err != nil {
+		return ""
+	}
+
+	// Force leading slash, if missing
+	if parsed.Path == "" {
+		parsed.Path = "/"
+	}
+
+	// If query is empty, then just return the path
+	if parsed.RawQuery == "" {
+		return parsed.Path
+	}
+
+	// Return path and query string
+	return parsed.Path + "?" + parsed.RawQuery
 }
 
 // HasProtocol returns TRUE if the provided URL includes a protocol string
