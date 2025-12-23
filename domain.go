@@ -15,13 +15,23 @@ func Protocol(hostname string) string {
 }
 
 // NameOnly removes the protocol and port from a hostname
-func NameOnly(host string) string {
-	host = strings.TrimPrefix(host, "http://")
-	host = strings.TrimPrefix(host, "https://")
-	host, _, _ = strings.Cut(host, "/")
-	host, _, _ = strings.Cut(host, ":")
+func NameOnly(value string) string {
 
-	return host
+	value = strings.ToLower(value)
+
+	// Remove HTTP/HTTPS protocol, if present
+	if strings.HasPrefix(value, ProtocolHTTPS) {
+		value = strings.TrimPrefix(value, ProtocolHTTPS)
+	} else if strings.HasPrefix(value, ProtocolHTTP) {
+		value = strings.TrimPrefix(value, ProtocolHTTP)
+	}
+
+	value, _, _ = strings.Cut(value, "/") // Remove path values
+	value, _, _ = strings.Cut(value, ":") // Remote port values
+
+	return value
+}
+
 }
 
 // HasProtocol returns TRUE if the provided URL includes a protocol string
