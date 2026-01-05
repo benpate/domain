@@ -23,5 +23,7 @@ func TestHost(t *testing.T) {
 	do("https://server.com/many/path/names", "https://server.com")
 	do("https://server.com:443", "https://server.com:443")
 
+	do("HTTPS://CaSeInSeNsItIvE.com", "HTTPS://CaSeInSeNsItIvE.com")
+
 	do("not-a-host", "")
 }
